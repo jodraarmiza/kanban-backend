@@ -15,7 +15,7 @@ func ConnectDB() {
 	godotenv.Load() // Memuat file .env
 
 	// Ambil DATABASE_URL langsung dari environment
-	dsn := os.Getenv("postgresql://postgres:ZNUffYdAUxjLBAiZTgJHrPuJNwwsUvOS@viaduct.proxy.rlwy.net:26997/railway")
+	dsn := os.Getenv("https://postgres:ZNUffYdAUxjLBAiZTgJHrPuJNwwsUvOS@viaduct.proxy.rlwy.net:26997/railway")
 	if dsn == "" {
 		panic("DATABASE_URL tidak ditemukan di environment variables")
 	}
