@@ -12,4 +12,5 @@ func InitRoutes(e *echo.Echo) {
 	e.PUT("/tasks/:id", controllers.UpdateTask)
 	e.PUT("/tasks/:id/deadline", controllers.UpdateDeadline) // ✅ Tambahkan update deadline
 	e.DELETE("/tasks/:id", controllers.DeleteTask)
+	e.POST("/login", controllers.LoginUser)
 }

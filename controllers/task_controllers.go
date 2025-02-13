@@ -14,6 +14,27 @@ type LoginRequest struct {
 	Password string `json:"password"`
 }
 
+func LoginUser(c echo.Context) error {
+	var req LoginRequest
+	if err := c.Bind(&req); err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request"})
+	}
+
+	// ✅ Cek apakah username ada di database
+	var user models.User
+	if err := config.DB.Where("username = ?", req.Username).First(&user).Error; err != nil {
+		return c.JSON(http.StatusUnauthorized, map[string]string{"error": "Username atau password salah"})
+	}
+
+	// ✅ Cek password (pastikan menggunakan hash jika sudah terenkripsi)
+	if user.Password != req.Password {
+		return c.JSON(http.StatusUnauthorized, map[string]string{"error": "Username atau password salah"})
+	}
+
+	// ✅ Jika login berhasil, kirim respon
+	return c.JSON(http.StatusOK, map[string]string{"message": "Login berhasil!", "username": user.Username})
+}
+
 // ✅ 1. API untuk mengambil tugas yang masih dalam rentang createdAt hingga deadline
 func GetTasks(c echo.Context) error {
 	startDate := c.QueryParam("start")
