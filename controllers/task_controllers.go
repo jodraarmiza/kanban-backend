@@ -9,6 +9,11 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+type LoginRequest struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
 // ✅ 1. API untuk mengambil tugas yang masih dalam rentang createdAt hingga deadline
 func GetTasks(c echo.Context) error {
 	startDate := c.QueryParam("start")

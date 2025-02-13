@@ -15,11 +15,13 @@ import (
 func main() {
 	// Koneksi ke database
 	config.ConnectDB()
-	config.DB.AutoMigrate(&models.Task{}) // Migrasi database otomatis
+
+	// ✅ Migrasikan model `User` dan `Task`
+	config.DB.AutoMigrate(&models.User{}, &models.Task{})
 
 	e := echo.New()
 
-	// ✅ Tambahkan Middleware CORS untuk mengizinkan Netlify mengakses backend
+	// ✅ Tambahkan Middleware CORS
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"https://kanbantodolist.netlify.app"},                                                   // Ganti dengan domain frontend
 		AllowMethods: []string{echo.GET, echo.POST, echo.PUT, echo.DELETE, echo.OPTIONS},                               // Tambahkan OPTIONS
