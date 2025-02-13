@@ -21,9 +21,9 @@ func main() {
 
 	// ✅ Tambahkan Middleware CORS untuk mengizinkan Netlify mengakses backend
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"https://kanbantodolist.netlify.app"}, // Ganti dengan domain frontend
-		AllowMethods: []string{echo.GET, echo.POST, echo.PUT, echo.DELETE},
-		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+		AllowOrigins: []string{"https://kanbantodolist.netlify.app"},                                                   // Ganti dengan domain frontend
+		AllowMethods: []string{echo.GET, echo.POST, echo.PUT, echo.DELETE, echo.OPTIONS},                               // Tambahkan OPTIONS
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderAuthorization}, // Tambahkan Authorization jika ada login
 	}))
 
 	// Inisialisasi route
